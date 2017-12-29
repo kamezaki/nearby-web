@@ -4,5 +4,13 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyBhgaNlzX40fNwU-lhAPRLgpaERYduqGek',
+    authDomain: 'nearby-web.firebaseapp.com',
+    databaseURL: 'https://nearby-web.firebaseio.com',
+    projectId: 'nearby-web',
+    storageBucket: '',
+    messagingSenderId: '99280737852'
+  }
 };
