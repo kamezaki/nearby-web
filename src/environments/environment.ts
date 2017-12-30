@@ -10,7 +10,7 @@ export const environment = {
     authDomain: 'nearby-web.firebaseapp.com',
     databaseURL: 'https://nearby-web.firebaseio.com',
     projectId: 'nearby-web',
-    storageBucket: '',
+    storageBucket: 'nearby-web.appspot.com',
     messagingSenderId: '99280737852'
   }
 };
