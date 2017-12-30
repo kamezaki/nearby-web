@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 
+import { Logger, ConsoleLoggerService } from './logging/';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
     AngularFireAuthModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: Logger, useClass: ConsoleLoggerService }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
