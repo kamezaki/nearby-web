@@ -14,6 +14,9 @@ import { reducers } from './reducers';
 
 import { AppComponent } from './app.component';
 import { Logger, ConsoleLoggerService } from './logging/';
+import {
+  AuthService
+} from './services';
 
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 
@@ -33,7 +36,8 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
     StoreRouterConnectingModule
   ],
   providers: [
-    { provide: Logger, useClass: ConsoleLoggerService }
+    { provide: Logger, useClass: ConsoleLoggerService },
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

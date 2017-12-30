@@ -1,37 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-// import { AngularFireAuth } from 'angularfire2/auth';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import * as _ from 'lodash';
 
-import { authUserReducer } from './reducers/';
 import { Logger } from './logging/';
-import { RouterActions } from './actions/index';
+import { authUserReducer } from './reducers';
+import { AuthUserActions } from './actions';
+import { AuthService } from './services';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
+
+  private onDestory = new Subject();
 
   constructor(
     private store: Store<authUserReducer.State>,
+    private authService: AuthService,
     private log: Logger
   ) {  }
 
   ngOnInit() {
     this.log.info('ngOnInit');
-    this.store.select(authUserReducer.getUser)
+    this.authService.currentStatus$()
+      .pipe(takeUntil(this.onDestory))
       .subscribe(user => {
-        if (_.isNull(user) || _.isUndefined(user)) {
-          this.store.dispatch(new RouterActions.Go({ path: ['/login'] }));
-        } else {
-          this.log.info(user);
-        }
-      });
+        _.isNull(user) ?
+          this.store.dispatch(new AuthUserActions.Delete()) :
+          this.store.dispatch(new AuthUserActions.Update(user));
+    });
+  }
 
+  ngOnDestroy() {
+    this.onDestory.next();
   }
 
   // login() {
