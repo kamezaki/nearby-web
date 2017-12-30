@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { Component, OnInit } from '@angular/core';
+// import { AngularFireAuth } from 'angularfire2/auth';
+import { Store } from '@ngrx/store';
 import * as firebase from 'firebase/app';
 
+import { authUserReducer } from './reducers/';
 import { Logger } from './logging/';
 
 @Component({
@@ -10,20 +11,32 @@ import { Logger } from './logging/';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'app';
 
-  constructor(public afAuth: AngularFireAuth, private log: Logger) {  }
+  constructor(
+    private store: Store<authUserReducer.State>,
+    private log: Logger
+  ) {  }
 
-  login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider)
-      .then(result => {
-        this.log.info(result);
-      })
-      .catch(err => this.log.error(err));
+  ngOnInit() {
+    this.log.info('ngOnInit');
+    this.store.select(authUserReducer.getUser)
+      .subscribe(user => {
+        this.log.info(user);
+      });
+
   }
 
-  logout() {
-    this.afAuth.auth.signOut();
-  }
+  // login() {
+  //   this.afAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider)
+  //     .then(result => {
+  //       this.log.info(result);
+  //     })
+  //     .catch(err => this.log.error(err));
+  // }
+
+  // logout() {
+  //   this.afAuth.auth.signOut();
+  // }
 }
