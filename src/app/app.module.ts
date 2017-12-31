@@ -18,12 +18,14 @@ import { AuthService } from './services';
 import { Guards } from './guards';
 
 import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPageComponent
+    LoginPageComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,

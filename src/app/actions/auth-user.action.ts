@@ -3,8 +3,9 @@ import { AuthUser } from '../models/';
 import { AuthUserActions } from './index';
 
 export const UPDATE = '[AuthUser] update';
-export const UPDATE_SUCCESS = '[AuthUser] update success';
-export const UPDATE_FAILURE = '[AuthUser] update failure';
+export const LOGIN  = '[AuthUser] login';
+export const LOGIN_SUCCESS = '[AuthUser] login success';
+export const LOGIN_FAILURE = '[AuthUser] login failure';
 export const DELETE = '[AuthUser] delete';
 
 export class Update implements Action {
@@ -12,14 +13,18 @@ export class Update implements Action {
     constructor(public payload: AuthUser) {}
 }
 
-// export class UpdateSuccess implements Action {
-//     readonly type = UPDATE_SUCCESS;
-//     constructor(public payload: AuthUser) {}
-// }
+export class Login implements Action {
+    readonly type = LOGIN;
+}
 
-// export class UpdateFailure implements Action {
-//     readonly type = UPDATE_FAILURE;
-// }
+export class LoginSuccess implements Action {
+    readonly type = LOGIN_SUCCESS;
+    constructor(public payload: AuthUser) {}
+}
+
+export class LoginFailure implements Action {
+    readonly type = LOGIN_FAILURE;
+}
 
 export class Delete implements Action {
     readonly type = DELETE;

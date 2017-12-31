@@ -32,7 +32,11 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestory))
       .subscribe(user => {
         this.log.error(user);
-        if (user) { this.store.dispatch(new AuthUserActions.Update(user)); }
+        if (user) {
+          this.store.dispatch(new AuthUserActions.Update(user));
+        } else {
+          this.store.dispatch(new RouterActions.Go({path: ['/login']}));
+        }
       });
     //     user ?
     //       this.store.dispatch(new AuthUserActions.Update(user)) :
