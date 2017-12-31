@@ -6,8 +6,8 @@ import * as firebase from 'firebase/app';
 import * as _ from 'lodash';
 
 import { Logger } from './logging/';
-import { authUserReducer } from './reducers';
-import { AuthUserActions } from './actions';
+import { State } from './reducers';
+import { AuthUserActions, RouterActions } from './actions';
 import { AuthService } from './services';
 
 @Component({
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private onDestory = new Subject();
 
   constructor(
-    private store: Store<authUserReducer.State>,
+    private store: Store<State>,
     private authService: AuthService,
     private log: Logger
   ) {  }
@@ -31,11 +31,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.currentStatus$()
       .pipe(takeUntil(this.onDestory))
       .subscribe(user => {
-        _.isNull(user) ?
-          this.store.dispatch(new AuthUserActions.Delete()) :
-          this.store.dispatch(new AuthUserActions.Update(user));
-    });
-  }
+        this.log.error(user);
+        if (user) { this.store.dispatch(new AuthUserActions.Update(user)); }
+      });
+    //     user ?
+    //       this.store.dispatch(new AuthUserActions.Update(user)) :
+    //       this.store.dispatch(new )
+    // });
+   }
 
   ngOnDestroy() {
     this.onDestory.next();
