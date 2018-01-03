@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
@@ -18,6 +19,7 @@ import { AuthService } from './services';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'app';
 
+  private isLogin$: Observable<boolean>;
   private onDestory = new Subject();
 
   constructor(
@@ -27,17 +29,15 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {  }
 
   ngOnInit() {
-    this.log.debug('ngOnInit');
     this.authService.currentStatus$()
       .pipe(takeUntil(this.onDestory))
       .subscribe(user => {
-        this.log.debug(user);
         if (user) {
           this.store.dispatch(new AuthUserActions.Update(user));
-        } else {
-          this.store.dispatch(new RouterActions.Go({path: ['/login']}));
         }
       });
+    this.isLogin$ = this.authService.currentStatus$()
+      .map(user => !_.isNil(user));
    }
 
   ngOnDestroy() {

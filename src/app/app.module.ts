@@ -16,15 +16,15 @@ import { AppComponent } from './app.component';
 import { Logger, ConsoleLoggerService } from './logging/';
 import { AuthService } from './services';
 
-import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginPageComponent,
-    MainPageComponent
+    MainPageComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

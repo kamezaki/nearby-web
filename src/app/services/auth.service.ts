@@ -25,6 +25,7 @@ export class AuthService {
           localStorage.removeItem(STORAGE_LOGIN_KEY);
           return null;
         }
+        this.log.info(user);
 
         return user;
       });
