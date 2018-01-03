@@ -45,10 +45,6 @@ export class AuthService {
         };
         localStorage.setItem(STORAGE_LOGIN_KEY, JSON.stringify(user));
         return user;
-      })
-      .catch(err => {
-        this.log.error(err);
-        return null;
       });
       return Observable.fromPromise(promise);
   }

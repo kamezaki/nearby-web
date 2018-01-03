@@ -1,21 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { map, switchMap, catchError } from 'rxjs/operators';
 
 import { AuthUserActions } from '../actions';
 import { AuthService } from '../services';
-import { toPayload } from '@ngrx/effects/src/util';
-import { switchMap } from 'rxjs/operators/switchMap';
 
 @Injectable()
 export class AuthUserEffects {
     constructor(private actions$: Actions, private authService: AuthService) {}
 
-    // @Effect() update$: Observable<Action> = this.actions$
-    //     .ofType(AuthUserActions.UPDATE)
-    //     .pipe(
-    //         map(toPayload),
-    //         switchMap(payload => )
-    //     );
+    @Effect()
+    login$: Observable<Action> = this.actions$
+        .ofType(AuthUserActions.LOGIN)
+        .pipe(
+            map(toPayload),
+            switchMap(payload => {
+                this.authService.login();
+                return this.authService.loginResult$()
+                    .pipe(
+                        map(result => new AuthUserActions.LoginSuccess(result)),
+                        catchError(err => of(new AuthUserActions.LoginFailure()))
+                    );
 
+            })
+        );
 }

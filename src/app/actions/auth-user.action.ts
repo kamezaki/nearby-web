@@ -32,4 +32,7 @@ export class Delete implements Action {
 
 export type Actions =
     Update |
+    Login |
+    LoginSuccess |
+    LoginFailure |
     Delete;

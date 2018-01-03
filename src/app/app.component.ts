@@ -27,36 +27,20 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {  }
 
   ngOnInit() {
-    this.log.info('ngOnInit');
+    this.log.debug('ngOnInit');
     this.authService.currentStatus$()
       .pipe(takeUntil(this.onDestory))
       .subscribe(user => {
-        this.log.error(user);
+        this.log.debug(user);
         if (user) {
           this.store.dispatch(new AuthUserActions.Update(user));
         } else {
           this.store.dispatch(new RouterActions.Go({path: ['/login']}));
         }
       });
-    //     user ?
-    //       this.store.dispatch(new AuthUserActions.Update(user)) :
-    //       this.store.dispatch(new )
-    // });
    }
 
   ngOnDestroy() {
     this.onDestory.next();
   }
-
-  // login() {
-  //   this.afAuth.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider)
-  //     .then(result => {
-  //       this.log.info(result);
-  //     })
-  //     .catch(err => this.log.error(err));
-  // }
-
-  // logout() {
-  //   this.afAuth.auth.signOut();
-  // }
 }
