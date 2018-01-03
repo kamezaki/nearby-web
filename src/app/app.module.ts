@@ -15,7 +15,6 @@ import { reducers } from './reducers';
 import { AppComponent } from './app.component';
 import { Logger, ConsoleLoggerService } from './logging/';
 import { AuthService } from './services';
-import { Guards } from './guards';
 
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
@@ -39,7 +38,6 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
   providers: [
     { provide: Logger, useClass: ConsoleLoggerService },
     AuthService,
-    ...Guards
   ],
   bootstrap: [AppComponent]
 })
