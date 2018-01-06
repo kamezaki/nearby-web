@@ -5,6 +5,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { AgmCoreModule } from '@agm/core';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +33,7 @@ import { LoginComponent } from './components/login/login.component';
     AngularFireAuthModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyBhgaNlzX40fNwU-lhAPRLgpaERYduqGek'}),
     AppRoutingModule,
     StoreRouterConnectingModule
   ],
