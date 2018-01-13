@@ -28,7 +28,7 @@ export class CurrentLocationService {
    *                 and watchPosition only tries to obtain an updated position if no cached position data exists.
 	 * @returns {Observable} An observable sequence with the geographical location of the device running the client.
 	 */
-  public getLocation(opts): Observable<any> {
+  public getLocation$(opts): Observable<Position> {
 
     return Observable.create(observer => {
 

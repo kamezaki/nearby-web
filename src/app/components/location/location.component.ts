@@ -1,23 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { CurrentLocationService } from '../../services/index';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs/Subject';
+
+import { State, locationReducer } from '../../reducers';
+import { LocationActions } from '../../actions';
 import { Logger } from '../../logging';
 
 @Component({
   selector: 'app-location',
-  providers: [ CurrentLocationService ],
   templateUrl: './location.component.html',
   styleUrls: ['./location.component.scss']
 })
-export class LocationComponent implements OnInit {
+export class LocationComponent implements OnInit, OnDestroy {
+  private onDestory = new Subject();
 
   constructor(
-    private currentLocationService: CurrentLocationService,
+    private store: Store<State>,
     private log: Logger
   ) { }
 
   ngOnInit() {
-    this.currentLocationService.getLocation({})
-      .subscribe(position => this.log.info(position));
+    this.store.select(locationReducer.getLocation)
+      .subscribe(location => this.log.info(location));
+    this.store.dispatch(new LocationActions.Current());
+  }
+
+  ngOnDestroy() {
+    this.onDestory.next();
   }
 
 }

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
+
 import { AuthUser } from '../models/';
-import { AuthUserActions } from './index';
 
 export const UPDATE = '[AuthUser] update';
 export const LOGIN  = '[AuthUser] login';
