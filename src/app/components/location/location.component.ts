@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
+import { takeUntil } from 'rxjs/operators';
 
 import { State, locationReducer } from '../../reducers';
 import { LocationActions } from '../../actions';
@@ -21,6 +22,7 @@ export class LocationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.store.select(locationReducer.getLocation)
+      .pipe(takeUntil(this.onDestory))
       .subscribe(location => this.log.info(location));
     this.store.dispatch(new LocationActions.Current());
   }
