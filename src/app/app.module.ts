@@ -19,13 +19,15 @@ import { AuthService } from './services';
 
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { LoginComponent } from './components/login/login.component';
+import { LocationComponent } from './components/location/location.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MainPageComponent,
-    LoginComponent
+    LoginComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,
