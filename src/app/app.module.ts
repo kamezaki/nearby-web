@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { StoreModule } from '@ngrx/store';
@@ -34,11 +35,16 @@ import { LocationComponent } from './components/location/location.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
-    AgmCoreModule.forRoot({apiKey: 'AIzaSyBhgaNlzX40fNwU-lhAPRLgpaERYduqGek'}),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBhgaNlzX40fNwU-lhAPRLgpaERYduqGek',
+      libraries: ['places']
+    }),
     AppRoutingModule,
     StoreRouterConnectingModule
   ],
