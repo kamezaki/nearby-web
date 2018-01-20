@@ -13,6 +13,7 @@ export const initialState: State = {
 
 export function reducer(state = initialState, action: LocationActions.Actions): State {
     switch (action.type) {
+        case LocationActions.UPDATE:
         case LocationActions.CURRENT_SUCCESS: {
             return Object.assign({}, state, { location: action.payload });
         }

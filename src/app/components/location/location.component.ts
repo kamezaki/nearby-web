@@ -28,8 +28,6 @@ import { logging } from 'selenium-webdriver';
 export class LocationComponent implements OnInit, OnDestroy {
   private onDestory = new Subject();
   private searchControl: FormControl;
-  private latitude: number;
-  private longitude: number;
 
   @Input()
   location: Location;
@@ -55,9 +53,7 @@ export class LocationComponent implements OnInit, OnDestroy {
 
     // load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ['address']
-      });
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {});
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           // get the place result
@@ -67,9 +63,11 @@ export class LocationComponent implements OnInit, OnDestroy {
             return;
           }
           // set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.log.info('long ' + this.longitude + ' latitude ' + this.latitude);
+          const location: Location = {
+            latitude: place.geometry.location.lat(),
+            longtitude: place.geometry.location.lng()
+          };
+          this.store.dispatch(new LocationActions.Update(location));
         });
       });
     });
