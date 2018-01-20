@@ -29,9 +29,7 @@ export class MapComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.onDestory))
       .subscribe(location => {
         this.location = location;
-        if (this.zoom < 8) {
-          this.zoom = 12;
-        }
+        this.zoom = 14;
       });
   }
 
