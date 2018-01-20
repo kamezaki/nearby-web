@@ -1,3 +1,4 @@
-<agm-map [latitude]="location.latitude" [longitude]="location.longitude" [scrollwheel]="false" [zoom]="zoom">
-  <agm-marker [latitude]="location.latitude" [longitude]="location.longitude"></agm-marker>
+<agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom"
+  (zoomChange)="onZoomChange($event)">
+  <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
 </agm-map>

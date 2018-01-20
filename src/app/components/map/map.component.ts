@@ -16,8 +16,9 @@ import { Logger } from '../../logging';
 export class MapComponent implements OnInit, OnDestroy {
   private onDestory = new Subject();
 
-  private location: Location;
   private zoom = 4;
+  private latitude: number;
+  private longitude: number;
 
   constructor(
     private store: Store<State>,
@@ -28,13 +29,20 @@ export class MapComponent implements OnInit, OnDestroy {
     this.store.select(locationReducer.getLocation)
       .pipe(takeUntil(this.onDestory))
       .subscribe(location => {
-        this.location = location;
-        this.zoom = 14;
+        this.longitude = location.longitude;
+        this.latitude = location.latitude;
+        if (this.zoom < 12) {
+          this.zoom = 14;
+        }
       });
   }
 
   ngOnDestroy() {
     this.onDestory.next();
+  }
+
+  onZoomChange(z: number): void {
+    this.zoom = z;
   }
 
 }
