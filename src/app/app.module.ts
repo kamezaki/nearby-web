@@ -24,6 +24,7 @@ import {
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { LoginComponent } from './components/login/login.component';
 import { LocationComponent } from './components/location/location.component';
+import { MapComponent } from './components/map/map.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { LocationComponent } from './components/location/location.component';
     AppComponent,
     MainPageComponent,
     LoginComponent,
-    LocationComponent
+    LocationComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

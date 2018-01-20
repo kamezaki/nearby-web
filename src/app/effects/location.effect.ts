@@ -24,7 +24,7 @@ export class LocationEffects {
                         map(position => {
                             const l: Location = {
                                 latitude: position.coords.latitude,
-                                longtitude: position.coords.longitude
+                                longitude: position.coords.longitude
                             };
                             return new LocationActions.CurrentSuccess(l);
                         }),

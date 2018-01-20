@@ -12,13 +12,12 @@ import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
 import { MapsAPILoader } from '@agm/core';
-import { } from 'googlemaps';
+import {} from 'googlemaps';
 
 import { State, locationReducer } from '../../reducers';
 import { LocationActions } from '../../actions';
 import { Location } from '../../models';
 import { Logger } from '../../logging';
-import { logging } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-location',
@@ -65,7 +64,7 @@ export class LocationComponent implements OnInit, OnDestroy {
           // set latitude, longitude and zoom
           const location: Location = {
             latitude: place.geometry.location.lat(),
-            longtitude: place.geometry.location.lng()
+            longitude: place.geometry.location.lng()
           };
           this.store.dispatch(new LocationActions.Update(location));
         });

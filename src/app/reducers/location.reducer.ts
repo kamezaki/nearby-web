@@ -8,7 +8,10 @@ export interface State {
 }
 
 export const initialState: State = {
-    location: undefined
+    location: {
+        longitude: 0,
+        latitude: 0
+    }
 };
 
 export function reducer(state = initialState, action: LocationActions.Actions): State {
