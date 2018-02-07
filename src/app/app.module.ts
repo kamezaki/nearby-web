@@ -44,7 +44,7 @@ import { MapComponent } from './components/map/map.component';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot(effects),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBhgaNlzX40fNwU-lhAPRLgpaERYduqGek',
+      apiKey: environment.firebase.apiKey,
       libraries: ['places']
     }),
     AppRoutingModule,
