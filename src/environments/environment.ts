@@ -12,5 +12,8 @@ export const environment = {
     projectId: 'nearby-web',
     storageBucket: 'nearby-web.appspot.com',
     messagingSenderId: '99280737852'
+  },
+  gateway: {
+    host: 'http://locahost'
   }
 };

@@ -16,10 +16,7 @@ import { reducers } from './reducers';
 
 import { AppComponent } from './app.component';
 import { Logger, ConsoleLoggerService } from './logging/';
-import {
-   AuthService,
-   CurrentLocationService
-} from './services';
+import { SERVICE_PROVIDERS } from './services';
 
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { LoginComponent } from './components/login/login.component';
@@ -52,8 +49,7 @@ import { MapComponent } from './components/map/map.component';
   ],
   providers: [
     { provide: Logger, useClass: ConsoleLoggerService },
-    AuthService,
-    CurrentLocationService,
+    ...SERVICE_PROVIDERS
   ],
   bootstrap: [AppComponent]
 })
