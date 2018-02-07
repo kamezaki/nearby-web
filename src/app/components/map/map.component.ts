@@ -4,8 +4,9 @@ import { Subject } from 'rxjs/Subject';
 import { takeUntil, filter } from 'rxjs/operators';
 import * as _ from 'lodash';
 
-import { State, locationReducer } from '../../reducers';
-import { Location } from '../../models';
+import { QueryActions } from '../../actions';
+import { State, locationReducer, queryReducer } from '../../reducers';
+import { Location, SearchQuery, RadiusType } from '../../models';
 import { Logger } from '../../logging';
 
 @Component({
@@ -34,7 +35,18 @@ export class MapComponent implements OnInit, OnDestroy {
         if (this.zoom < 12) {
           this.zoom = 14;
         }
+
+        const query: SearchQuery = {
+          lat: this.longitude,
+          long: this.longitude,
+          radius: 10,
+          radiusType: RadiusType.KM
+        }
+        this.store.dispatch(new QueryActions.Search(query));
       });
+    this.store.select(queryReducer.getQuery)
+      .pipe(takeUntil(this.onDestory))
+      .subscribe(result => this.log.info('get query result'));
   }
 
   ngOnDestroy() {

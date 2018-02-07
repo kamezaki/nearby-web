@@ -21,7 +21,8 @@ export class GatewayService {
       'long': opt.long,
       'radius': opt.radius + (opt.radiusType == RadiusType.KM ? 'km' : 'mi')
     }
-    this.http.post(this.getUrl(searchUri), query, options).subscribe(data => this.log.info(data));
+    this.log.info('start query post');
+    return this.http.post(this.getUrl(searchUri), query, options).do(data => this.log.info(data));
 
   }
 
